@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/drawer_ui/navigation_drawer.dart';
-class instagramfeed extends StatefulWidget {
+class facebouk_feeds extends StatefulWidget {
   @override
-  _instagramfeedState createState() => _instagramfeedState();
+  _facebouk_feedsState createState() => _facebouk_feedsState();
 }
 
-class _instagramfeedState extends State<instagramfeed> {
+class _facebouk_feedsState extends State<facebouk_feeds> {
+  TextStyle _hashTagStyle=TextStyle(color: Colors.orange);
 
- TextStyle _hashTagStyle=TextStyle(color: Colors.orange);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text("Instagram Feeds"),
+        title: Text("Facebook Feeds"),
         centerTitle: false,
         actions: [
           IconButton(
@@ -30,11 +30,11 @@ class _instagramfeedState extends State<instagramfeed> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                    _drawHeader(),
-                    _drawTitle(),
-                    _drawHashTags(),
-                    _drawBody(),
-                    _drawFooter(),
+                  _drawHeader(),
+                  _drawTitle(),
+                  _drawHashTags(),
+                  _drawBody(),
+                  _drawFooter(),
                 ],
               ),
             );
@@ -70,22 +70,22 @@ class _instagramfeedState extends State<instagramfeed> {
         Row(
           children: [
             IconButton(icon: Icon(Icons.favorite),onPressed: (){},color: Colors.grey,),
-              Transform.translate(
-                  offset: Offset(-10,0),
-                  child: Text('25',style: TextStyle(color: Colors.grey),)),
+            Transform.translate(
+                offset: Offset(-10,0),
+                child: Text('25',style: TextStyle(color: Colors.grey),)),
           ],
         ),
       ],
     );
- }
+  }
   Widget  _drawTitle() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8,left: 5),
       child: Text(
-          "We also talk about the future of work as the robots",
-          style: TextStyle(
-            color: Colors.grey.shade900,
-          ),
+        "We also talk about the future of work as the robots",
+        style: TextStyle(
+          color: Colors.grey.shade900,
+        ),
       ),
     );
   }
