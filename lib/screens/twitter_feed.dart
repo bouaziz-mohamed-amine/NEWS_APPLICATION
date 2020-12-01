@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/drawer_ui/navigation_drawer.dart';
  
@@ -21,14 +22,19 @@ class _TwitterFeedState extends State<TwitterFeed> {
       ),
       drawer: NavigationDrawer(),
       body: ListView.builder(
+          padding: EdgeInsets.all(8),
           itemBuilder: (context,index){
-            return Card(
-              child: Column(
-                children: [
-                  _cardHeader(),
-                  _cardBody(),
-                  _cardFooter(),
-                ],
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Card(
+                child: Column(
+                  children: [
+                    _cardHeader(),
+                    _cardBody(),
+                    _drawLine(),
+                    _cardFooter(),
+                  ],
+                ),
               ),
             );
           },
@@ -52,12 +58,16 @@ class _TwitterFeedState extends State<TwitterFeed> {
           children: [
            Row(
              children: [
-               Text("Christina meyers"),
-               Text("@ch_meyers"),
+               Text("Christina meyers",
+                 style: TextStyle(color: Colors.grey.shade900 ,
+                     fontSize: 16,
+                     fontWeight: FontWeight.w600),),
+               SizedBox(width: 8,),
+               Text("@ch_meyers",style: TextStyle(color: Colors.grey),),
              ],
            ),
             SizedBox(height: 8,),
-            Text("Fri, 12 May 2017 . 14.30")
+            Text("Fri, 12 May 2017 . 14.30",style: TextStyle(color: Colors.grey),)
           ],
         ),
       ],
@@ -66,7 +76,8 @@ class _TwitterFeedState extends State<TwitterFeed> {
  Widget _cardBody(){
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16,bottom: 8),
-      child: Text("We also talk about the future of work as the robots advance, and we ask whether a retro phone"),
+      child: Text("We also talk about the future of work as the robots advance, and we ask whether a retro phone",
+              style:TextStyle(fontSize: 14,height: 1.2,color: Colors.grey.shade900),),
     );
  }
  Widget _cardFooter(){
@@ -77,8 +88,8 @@ class _TwitterFeedState extends State<TwitterFeed> {
          children: [
            Row(
              children: [
-               IconButton( icon:Icon(Icons.repeat),color: Colors.orange ,onPressed: (){},),
-               Text('25'),
+               IconButton( icon:Icon(Icons.repeat , size: 28,),color: Colors.orange ,onPressed: (){},),
+               Text('25',style: TextStyle(color: Colors.grey,fontSize: 16),),
              ],
            ),
            Row(
@@ -92,6 +103,14 @@ class _TwitterFeedState extends State<TwitterFeed> {
 
     );
  }
+
+ Widget _drawLine() {
+    return Container(
+      height: 1,
+      color: Colors.grey.shade200,
+      margin: EdgeInsets.only(top: 16),
+    );
+  }
 }
 
 
