@@ -109,7 +109,7 @@ class _facebouk_feedsState extends State<facebouk_feeds> {
       width: double.infinity,
       height: MediaQuery.of(context).size.height*0.3,
       child: Image(
-        image: ExactAssetImage('assets/images/card.jpg',),
+        image: ExactAssetImage('assets/images/email.png'),
         fit: BoxFit.cover,
 
       ),
