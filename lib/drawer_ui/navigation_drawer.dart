@@ -27,6 +27,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             padding: const EdgeInsets.only(left: 20,top: 50),
 
             child: ListView.builder(
+              itemCount: navigationMenu.length,
               itemBuilder: (context,index){
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -47,7 +48,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   ),
                 );
               },
-              itemCount: navigationMenu.length,
+
             ),
           ),
     );

@@ -62,8 +62,7 @@ class _RunAppState extends State<RunApp> {
                         ),
                       ),
                       onPressed: (){
-                        Navigator.push(
-                            context,
+                        Navigator.push(context,
                             MaterialPageRoute(
                                 builder: (context){
                                   return HomeScreen();

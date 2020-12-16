@@ -57,7 +57,7 @@ Color _getRandomcolor(){
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: ExactAssetImage('assets/images/gmail.png'),
+                  image: ExactAssetImage('assets/images/email.png'),
                   fit: BoxFit.cover,
                 ),
               ),
