@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/drawer_ui/navigation_drawer.dart';
+import 'package:news_app/main.dart';
 import 'home_tabs/favorites.dart';
 import 'home_tabs/popular.dart';
 import 'home_tabs/whatsnew.dart';
+import 'package:news_app/api/authors_api.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,8 +24,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
   // end tabcontroller
 
+
   @override
   Widget build(BuildContext context) {
+
     return
      Scaffold(
             appBar: AppBar(
@@ -85,3 +89,4 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   );
   }
 }
+

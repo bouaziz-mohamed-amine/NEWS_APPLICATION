@@ -109,7 +109,7 @@ class _instagramfeedState extends State<instagramfeed> {
       width: double.infinity,
       height: MediaQuery.of(context).size.height*0.3,
       child: Image(
-        image: ExactAssetImage('assets/images/email.png',),
+        image: ExactAssetImage('assets/images/card1.png',),
         fit: BoxFit.cover,
 
       ),

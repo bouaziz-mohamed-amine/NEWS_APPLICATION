@@ -52,7 +52,7 @@ class _facebouk_feedsState extends State<facebouk_feeds> {
               padding: const EdgeInsets.all(16.0),
               child: CircleAvatar(
                 backgroundColor: Colors.blue,
-                radius: 24,
+                radius: 25,
 
               ),
             ),
