@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:news_app/utilities/api_utilities.dart';
 import 'package:news_app/models/post.dart';
 import 'package:news_app/utilities/api_utilities.dart';
 import 'package:http/http.dart' as http;
@@ -7,15 +7,22 @@ import 'package:http/http.dart' as http;
 class PostApi{
 
   Future<List<Post>>fetchAllPosts() async {
-      List<Post>posts=List<Post>();
-      String allpostsipi=base_api+all_posts_api;
-
+      List<Post>posts=[];
+     String allpostsipi=base_api+all_posts_api;
+     //String allpostsipi="https://jsonplaceholder.typicode.com/posts";
       var response = await http.get(allpostsipi);
 
       if(response.statusCode==200){
+        //print(response.body);
         var jsonData=jsonDecode(response.body);
         var data=jsonData["data"];
+       // print(jsonData);
+        /*for( var item in jsonData){
+            Post post=Post(item["userId"].toString(),item["id"].toString(),item["title"].toString(),item["body"].toString());
+            posts.add(post);
+          }*/
         for(var item in data){
+          //print(item);
             Post post=Post(
               id:item["id"].toString() ,
               title: item["title"].toString(),
@@ -30,10 +37,12 @@ class PostApi{
               categoryId: item["category_id"],
             );
             posts.add(post);
-            print(post.title);
 
         }
       }
+      //print(posts[0].title);
+     // print(posts);
       return posts;
   }
 }
+

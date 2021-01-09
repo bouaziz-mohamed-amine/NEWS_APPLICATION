@@ -9,7 +9,7 @@ main(){
   PostApi post=PostApi();
   print("amine");
  // author.fetchAllAuthors();
-//post.fetchAllPosts();
+post.fetchAllPosts();
 
 
 }

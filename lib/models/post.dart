@@ -8,4 +8,9 @@ class Post {
     this.votesUp, this.votesDown, this.votersUp, this.votersDown, this.userId,
     this.categoryId});
 
+
+
+//String userId, id , title, body;
+
+//Post(this.userId, this.id, this.title, this.body);
 }

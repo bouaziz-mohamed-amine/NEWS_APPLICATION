@@ -1,12 +1,17 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:news_app/api/posts_api.dart';
+import 'dart:async';
+import 'package:news_app/models/post.dart';
+import 'dart:ui';
+import 'package:timeago/timeago.dart' as timeago;
 class Whats_New extends StatefulWidget {
   @override
   _Whats_NewState createState() => _Whats_NewState();
 }
 
 class _Whats_NewState extends State<Whats_New> {
+  PostApi postsApi=PostApi();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class _Whats_NewState extends State<Whats_New> {
         children: [
           _drawHeader(),
           _drawerTops(),
+          _drawRecentUpdate(),
         ],
       ),
     );
@@ -65,39 +71,31 @@ class _Whats_NewState extends State<Whats_New> {
             padding: EdgeInsets.all(8),
             child:Container(
                color: Colors.white,
-              child: Column(
-                children: [
-                  _drawerTop(),
-                  _drawDivider(),
-                  _drawerTop(),
-                  _drawDivider(),
-                  _drawerTop(),
-                  _drawDivider(),
-                          ],
+              child: FutureBuilder(
+                future: postsApi.fetchAllPosts(),
+                builder: (BuildContext context,  AsyncSnapshot snapshot){
+                    Post post1=snapshot.data[0];
+                    Post post2=snapshot.data[1];
+                    Post post3=snapshot.data[2];
+                  return  Column(
+                        children: [
+                          _drawerTop(post1),
+                          _drawDivider(),
+                          _drawerTop(post2),
+                          _drawDivider(),
+                          _drawerTop(post3),
+                          _drawDivider(),
+                        ],
+                      );
+                },
+              ),
                           ),
                           ),
-                          ),
-          Padding(
-            padding: EdgeInsets.all( 8) ,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10,bottom: 8, ),
-                  child: _drawSectiontitle("Recent Updates" ),
-                ),
-                _drawRecentCard(Colors.deepOrange),
-                _drawRecentCard(Colors.teal),
-                SizedBox(height: 48,)
-
-              ],
-            ),
-          ),
         ],
       ),
     );
   }
-Widget _drawerTop(){
+ Widget _drawerTop(Post post){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -105,16 +103,19 @@ Widget _drawerTop(){
           SizedBox(
             width:100,
             height:100,
-            child: Image.asset(
+            child: Image.network(post.featuredImage,fit: BoxFit.cover,)
+            /*Image.asset(
               "assets/images/email.png",
               fit: BoxFit.cover,
-            ),
+            ),*/
           ),
           SizedBox(width: 10,),
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('The world Global Waring Annual Summit ',
+                Text(post.title,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -128,7 +129,7 @@ Widget _drawerTop(){
                     Row(
                       children: [
                         Icon(Icons.timer),
-                        Text('15 min '),
+                        Text(_parseHumanDateTime(post.dateWritten)),
                       ],
                     ),
                   ],
@@ -147,7 +148,26 @@ Widget _drawDivider(){
       width: double.infinity,
     );
 }
-Widget _drawSectiontitle(String title){
+Widget _drawRecentUpdate(){
+    return Padding(
+      padding: EdgeInsets.all( 8) ,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10,bottom: 8, ),
+            child: _drawSectiontitle("Recent Updates" ),
+          ),
+          _drawRecentCard(Colors.deepOrange),
+          _drawRecentCard(Colors.teal),
+          SizedBox(height: 48,)
+
+        ],
+      ),
+    );
+  }
+
+  Widget _drawSectiontitle(String title){
  return Text(
 
    title,
@@ -208,6 +228,12 @@ Widget _drawSectiontitle(String title){
         ],
       ) ,
     );
+  }
+
+  String _parseHumanDateTime(String dateTime){
+        Duration timeAgo =  DateTime.now().difference(DateTime.parse(dateTime));
+        DateTime theDifference= DateTime.now().subtract(timeAgo);
+    return timeago.format(theDifference);
   }
 }
 
