@@ -83,7 +83,7 @@ class _popularState extends State<popular> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(post.title),
+                    Text(post.userId.toString()),
                     Row(
                       children: [
                         Icon(Icons.timer),

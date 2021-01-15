@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:news_app/api/posts_api.dart';
 import 'dart:async';
@@ -30,31 +32,62 @@ class _Whats_NewState extends State<Whats_New> {
   Widget _drawHeader() {
     TextStyle _headerTitle = TextStyle(fontSize: 25,fontWeight: FontWeight.w600);
     TextStyle _headerDescription = TextStyle(fontSize: 18);
-    return Container(
+    return FutureBuilder(
+      future: postsApi.fetChPostsByCategoryId("1"),
+      // ignore: missing_return
+      builder: ( BuildContext context , AsyncSnapshot snapshot){
+        switch(snapshot.connectionState){
+          case ConnectionState.none:
+            return _connectionError();
+            break;
+          case ConnectionState.waiting:
+            return _loading();
+            break;
+          case ConnectionState.active:
+            return _loading();
+            break;
+          case ConnectionState.done:
+            if(snapshot.hasError){
+                  return _error(snapshot.error);
+            }else{
+              if(snapshot.hasData){
+                List<Post>posts=snapshot.data;
 
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.25,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: ExactAssetImage('assets/images/gmail.png'),
-            fit: BoxFit.cover,
-          )
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 55,left:40 ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("How Terriers & Royals Gatecrashed Final",style:_headerTitle,textAlign: TextAlign.center,),
-              SizedBox(height: 8,),
-              Text(
-                "Lorem ipsum dolor sit amet, consecteur adipiscing elit , sed do eiusmod .",
-                textAlign: TextAlign.center,style: _headerDescription,),
-            ],
-          ),
-        ),
-      ),
+                Random random =Random();
+                int random_number= random.nextInt(posts.length);
+                Post post =posts[random_number];
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(post.featuredImage),
+                        fit: BoxFit.cover,
+                      )
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 55,left:40 ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(post.title,style:_headerTitle,textAlign: TextAlign.center,),
+                          SizedBox(height: 8,),
+                          Text(
+                            post.content.substring(0,75),
+                            textAlign: TextAlign.center,style: _headerDescription,),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }else{
+                  return _noData();
+              }
+            }
+            break;
+        }
+      },
     );
   }
 
