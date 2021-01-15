@@ -4,3 +4,5 @@ String all_categories_api="/api/categories";
 String whatsnew="/api/posts";
 
 String  recent_update_api="/api/posts/categories/6";
+
+String categories_api="/api/posts/categories/";
