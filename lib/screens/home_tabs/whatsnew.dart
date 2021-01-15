@@ -57,7 +57,8 @@ class _Whats_NewState extends State<Whats_New> {
       ),
     );
   }
-  Widget _drawerTops(){
+
+       Widget _drawerTops(){
     return Container(
        color: Colors.grey.shade100,
       child: Column( 
@@ -65,7 +66,7 @@ class _Whats_NewState extends State<Whats_New> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 16,top: 16 ),
-            child: _drawSectiontitle("Top Stories"),
+            child: _drawSectionTitle("Top Stories"),
           ),
           Padding(
             padding: EdgeInsets.all(8),
@@ -73,20 +74,43 @@ class _Whats_NewState extends State<Whats_New> {
                color: Colors.white,
               child: FutureBuilder(
                 future: postsApi.fetchAllPosts(),
+                // ignore: missing_return
                 builder: (BuildContext context,  AsyncSnapshot snapshot){
-                    Post post1=snapshot.data[0];
-                    Post post2=snapshot.data[1];
-                    Post post3=snapshot.data[2];
-                  return  Column(
-                        children: [
-                          _drawerTop(post1),
-                          _drawDivider(),
-                          _drawerTop(post2),
-                          _drawDivider(),
-                          _drawerTop(post3),
-                          _drawDivider(),
-                        ],
-                      );
+                  switch(snapshot.connectionState){
+
+                    case ConnectionState.none:
+                      return _connectionError();
+                      break;
+                    case ConnectionState.waiting:
+                      return _loading();
+                      break;
+                    case ConnectionState.active:
+                      return _loading();
+                      break;
+                    case ConnectionState.done:
+                      if (snapshot.error != null) {
+                        return  _error(snapshot.error) ;
+                      } else{
+                        if(snapshot.hasData){
+                          List<Post>posts=snapshot.data;
+                          if(posts.length>=3){
+                            Post post1 = snapshot.data[0];
+                            Post post2 = snapshot.data[1];
+                            Post post3 = snapshot.data[2];
+                            return Column(
+                              children: [
+                                _drawerTop(post1),
+                                _drawDivider(),
+                                _drawerTop(post2),
+                                _drawDivider(),
+                                _drawerTop(post3),
+                              ],
+                            );
+                          }else{return _noData();}
+                        }else{return _noData();}
+                      }
+                      break;
+                  }
                 },
               ),
                           ),
@@ -95,7 +119,7 @@ class _Whats_NewState extends State<Whats_New> {
       ),
     );
   }
- Widget _drawerTop(Post post){
+       Widget _drawerTop(Post post){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -141,35 +165,40 @@ class _Whats_NewState extends State<Whats_New> {
       ),
     );
 }
-Widget _drawDivider(){
+       Widget _drawDivider(){
     return Container(
       color: Colors.grey.shade100,
       height: 1,
       width: double.infinity,
     );
 }
+
 Widget _drawRecentUpdate(){
     return Padding(
       padding: EdgeInsets.all( 8) ,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10,bottom: 8, ),
-            child: _drawSectiontitle("Recent Updates" ),
-          ),
-          _drawRecentCard(Colors.deepOrange),
-          _drawRecentCard(Colors.teal),
-          SizedBox(height: 48,)
+      child: FutureBuilder(
+        future: postsApi.recentAllPosts(),
+        builder: (context,snapshot){
+          return  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10,bottom: 8, ),
+                child: _drawSectionTitle("Recent Updates" ),
+              ),
+              _drawRecentCard(Colors.deepOrange),
+              _drawRecentCard(Colors.teal),
+              SizedBox(height: 48,)
 
-        ],
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _drawSectiontitle(String title){
+  Widget _drawSectionTitle(String title){
  return Text(
-
    title,
    style: TextStyle(
        color: Colors.grey.shade900,
@@ -177,7 +206,6 @@ Widget _drawRecentUpdate(){
        fontSize: 16,
    ),);
 }
-
   Widget _drawRecentCard( Color color1) {
     return  Card(
       child:Column(
@@ -235,5 +263,31 @@ Widget _drawRecentUpdate(){
         DateTime theDifference= DateTime.now().subtract(timeAgo);
     return timeago.format(theDifference);
   }
-}
 
+  Widget _loading() {
+    return Container(
+      padding: EdgeInsets.only(top: 16,bottom: 16),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+  Widget _connectionError() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Text('Connection Error!!!!'),
+    );
+  }
+  Widget _noData() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Text('No Data Available!'),
+    );
+  }
+  Widget _error(var error) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Text(error.toString()),
+    );
+  }
+}

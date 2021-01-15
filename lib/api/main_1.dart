@@ -10,6 +10,4 @@ main(){
   print("amine");
  // author.fetchAllAuthors();
 post.fetchAllPosts();
-
-
 }

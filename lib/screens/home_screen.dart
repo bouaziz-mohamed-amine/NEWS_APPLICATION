@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _tabController= TabController(length: 3, vsync:this,);
-
   }
   // end tabcontroller
 
