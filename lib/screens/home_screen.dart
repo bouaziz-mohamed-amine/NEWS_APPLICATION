@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/drawer_ui/navigation_drawer.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/screens/pages/about.dart';
+import 'package:news_app/screens/pages/contact.dart';
+import 'package:news_app/screens/pages/help.dart';
+import 'package:news_app/screens/pages/settings.dart';
 import 'home_tabs/favorites.dart';
 import 'home_tabs/popular.dart';
 import 'home_tabs/whatsnew.dart';
@@ -64,24 +68,76 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   _popmenu( BuildContext context) {
   return PopupMenuButton<PopOutMenu>(
-    onSelected: (PopOutMenu menu){},
+      onSelected: (PopOutMenu menu) {
+    switch( menu ){
+      case PopOutMenu.ABOUT :
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ABOUTUS();
+        }));
+        break;
+      case PopOutMenu.SETTINGS:
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return SETTING();
+        }));
+        break;
+      case PopOutMenu.CONTACT :
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return CONTACT();
+        }));
+        break;
+      case PopOutMenu.HELP :
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return HELP();
+        }));
+        break;
+    }
+  },
+    icon: Icon(Icons.more_vert),
     itemBuilder: (context){
       return[
          PopupMenuItem<PopOutMenu>(
           value: PopOutMenu.ABOUT,
-          child: Text('ABOUT'),
+          child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return ABOUTUS() ;
+                    }));
+              },
+              child: Text('ABOUT')),
         ),
         PopupMenuItem<PopOutMenu>(
           value: PopOutMenu.HELP,
-          child: Text('HELP'),
+          child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return HELP();
+                    }));
+              },
+              child: Text('HELP')),
         ),
         PopupMenuItem<PopOutMenu>(
           value: PopOutMenu.CONTACT,
-          child: Text('CONTACT'),
+          child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return CONTACT();
+                    }));
+              },
+              child: Text('CONTACT')),
         ),
         PopupMenuItem<PopOutMenu>(
           value: PopOutMenu.SETTINGS,
-          child: Text('SETTINGS'),
+          child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return SETTING();
+                    }));
+              },
+              child: Text('SETTINGS')),
         ),
       ];
     },
