@@ -34,6 +34,7 @@ class _Whats_NewState extends State<Whats_New> {
   Widget _drawHeader() {
     TextStyle _headerTitle = TextStyle(fontSize: 25,fontWeight: FontWeight.w600);
     TextStyle _headerDescription = TextStyle(fontSize: 18,fontWeight: FontWeight.w400);
+
     String _textContent(String content){
       String new_content= content.substring(0,75)+ " ...";
       return new_content;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/api/posts_api.dart';
 import 'package:news_app/models/post.dart';
+import 'package:news_app/screens/single_post.dart';
 import 'package:news_app/utilities/data_utilities.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -59,43 +60,53 @@ class _popularState extends State<popular> {
   Widget _drawerTop(Post post){
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          SizedBox(
-            width:100,
-            height:100,
-            child: Image(
-              image: NetworkImage(post.featuredImage),
-              fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(context , MaterialPageRoute(
+            builder: (context){
+              return SinglePost(post);
+            }
+          )
+          );
+        },
+        child: Row(
+          children: [
+            SizedBox(
+              width:100,
+              height:100,
+              child: Image(
+                image: NetworkImage(post.featuredImage),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(width: 10,),
-          Expanded(
-            child: Column(
-              children: [
-                Text( post.title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 8,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(post.userId.toString()),
-                    Row(
-                      children: [
-                        Icon(Icons.timer),
-                        Text(_parseHumanDateTime(post.dateWritten)),
-                      ],
+            SizedBox(width: 10,),
+            Expanded(
+              child: Column(
+                children: [
+                  Text( post.title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  SizedBox(height: 8,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(post.userId.toString()),
+                      Row(
+                        children: [
+                          Icon(Icons.timer),
+                          Text(_parseHumanDateTime(post.dateWritten)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
