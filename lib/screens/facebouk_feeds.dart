@@ -8,6 +8,14 @@ class facebouk_feeds extends StatefulWidget {
 class _facebouk_feedsState extends State<facebouk_feeds> {
   TextStyle _hashTagStyle=TextStyle(color: Colors.orange);
 
+  List<int> ids = [];
+
+@override
+  void initState() {
+    ids=[0,2,5];
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +38,7 @@ class _facebouk_feedsState extends State<facebouk_feeds> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _drawHeader(),
+                  _drawHeader(index),
                   _drawTitle(),
                   _drawHashTags(),
                   _drawBody(),
@@ -42,7 +50,7 @@ class _facebouk_feedsState extends State<facebouk_feeds> {
       ),
     );
   }
-  Widget  _drawHeader() {
+  Widget  _drawHeader(int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween ,
       children: [
@@ -69,7 +77,19 @@ class _facebouk_feedsState extends State<facebouk_feeds> {
         ),
         Row(
           children: [
-            IconButton(icon: Icon(Icons.favorite),onPressed: (){},color: Colors.grey,),
+            IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: (){
+                setState(() {
+                  if(ids.contains(index)){
+                    ids.remove(index);
+                  }else{
+                    ids.add(index);
+                  }
+                });
+              },
+              color:(ids.contains(index))? Colors.red :  Colors.grey,
+            ),
             Transform.translate(
                 offset: Offset(-10,0),
                 child: Text('25',style: TextStyle(color: Colors.grey),)),
