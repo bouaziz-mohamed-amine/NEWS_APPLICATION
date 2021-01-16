@@ -100,34 +100,37 @@ class _SinglePostState extends State<SinglePost> {
   }
 
   Widget _commentText() {
-    return Container(
-      color: Color.fromRGBO(241, 245, 247, 1),
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Write Comment here!',
-                      contentPadding: EdgeInsets.only( left: 16 , top: 24 , bottom: 28 )
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        color: Color.fromRGBO(241, 245, 247, 1),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Write Comment here!',
+                        contentPadding: EdgeInsets.only( left: 16 , top: 24 , bottom: 28 )
+                    ),
                   ),
                 ),
-              ),
-              FlatButton(
-                child: Text(
-                  'SEND',
-                  style: TextStyle(color: Colors.red),
+                FlatButton(
+                  child: Text(
+                    'SEND',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () {},
                 ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-        ],
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+          ],
+        ),
       ),
     );
   }

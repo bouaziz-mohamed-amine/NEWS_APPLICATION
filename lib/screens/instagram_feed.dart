@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/drawer_ui/navigation_drawer.dart';
 class instagramfeed extends StatefulWidget {
+
+
+
   @override
   _instagramfeedState createState() => _instagramfeedState();
 }
@@ -8,6 +11,8 @@ class instagramfeed extends StatefulWidget {
 class _instagramfeedState extends State<instagramfeed> {
 
  TextStyle _hashTagStyle=TextStyle(color: Colors.orange);
+
+ List<int>favorite=[0,2,7,12];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +35,7 @@ class _instagramfeedState extends State<instagramfeed> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                    _drawHeader(),
+                    _drawHeader(index),
                     _drawTitle(),
                     _drawHashTags(),
                     _drawBody(),
@@ -42,7 +47,7 @@ class _instagramfeedState extends State<instagramfeed> {
       ),
     );
   }
-  Widget  _drawHeader() {
+  Widget  _drawHeader( int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween ,
       children: [
@@ -69,7 +74,18 @@ class _instagramfeedState extends State<instagramfeed> {
         ),
         Row(
           children: [
-            IconButton(icon: Icon(Icons.favorite),onPressed: (){},color: Colors.grey,),
+            IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: (){
+                if(favorite.contains(index)){
+                  favorite.remove(index);
+                }else{
+                  favorite.add(index);
+                }
+                setState(() {});
+              },
+              color:  (favorite.contains(index))? Colors.red :  Colors.grey,
+            ),
               Transform.translate(
                   offset: Offset(-10,0),
                   child: Text('25',style: TextStyle(color: Colors.grey),)),
@@ -109,7 +125,7 @@ class _instagramfeedState extends State<instagramfeed> {
       width: double.infinity,
       height: MediaQuery.of(context).size.height*0.3,
       child: Image(
-        image: ExactAssetImage('assets/images/card1.png',),
+        image: ExactAssetImage('assets/images/card2.jpg',),
         fit: BoxFit.cover,
 
       ),
