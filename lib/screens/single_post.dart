@@ -20,6 +20,7 @@ class _SinglePostState extends State<SinglePost> {
                   SliverAppBar(
                     floating: true,
                     pinned: true,
+                    backgroundColor: Colors.red.shade900,
                     expandedHeight: MediaQuery.of(context).size.height * 0.3,
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
@@ -40,14 +41,14 @@ class _SinglePostState extends State<SinglePost> {
                               return _drowPostDetails();
                             }
                             else{
-                              if(index >=0 && index< 9 ){
+                              if(index >=0 && index< 4 ){
                                 return _comments() ;
                               }else{
                                 return  _commentText();
                               }
                             }
                       },
-                      childCount: 10,
+                      childCount: 5,
 
                     ),
                   ),

@@ -51,7 +51,7 @@ class _RunAppState extends State<RunApp> {
                   padding: const EdgeInsets.only(bottom: 24,left: 20,right: 20),
                   child: SizedBox(
                     width: double.infinity ,
-                    height: 60,
+                    height: 50,
                     child: RaisedButton(
                       color: Colors.red.shade900,
                       child: Text(

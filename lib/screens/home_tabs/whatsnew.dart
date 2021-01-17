@@ -74,7 +74,7 @@ class _Whats_NewState extends State<Whats_New> {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(post.featuredImage),
