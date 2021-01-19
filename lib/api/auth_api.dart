@@ -5,7 +5,7 @@ import 'package:news_app/utilities/api_utilities.dart';
 
 class AuthenticationAPI {
 
-  Future<bool> login( ) async {
+  Future<bool> login( String email , String password) async {
     String authApi = base_api + auth_api;
     /*Map<String,String> headers = {
       "Accept" : "application/json",
@@ -13,21 +13,22 @@ class AuthenticationAPI {
     };
   */
     Map<String,String> body = {
-      "email" :"amine.m.a1998@gmail.com" ,
-      "password" :"bouaziz0000" ,
+      "email" : email , //
+      "password" : password,
     };
     var response = await http.post( authApi  , body: body );
 
     if( response.statusCode == 200 ){
-
-        var jsonData = jsonDecode( response.body);
-        var data = jsonData['data'];
-        var token = data['token'];
-
-        print(token);
-        return true;
+          try {
+            var jsonData = jsonDecode(response.body);
+            var data = jsonData['data'];
+            var token = data['token'];
+            return true;
+          }
+          catch(Exception){
+            return false;
+          }
       }else{
-      print("amine");
       return false;
     }
 

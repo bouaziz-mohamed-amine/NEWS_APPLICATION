@@ -36,7 +36,7 @@ class _Whats_NewState extends State<Whats_New> {
     TextStyle _headerDescription = TextStyle(fontSize: 18,fontWeight: FontWeight.w400);
 
     String _textContent(String content){
-      String new_content= content.substring(0,75)+ " ...";
+      String new_content= content.substring(0 , 50)+ " ...";
       return new_content;
     }
     return FutureBuilder(
