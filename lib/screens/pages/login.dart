@@ -32,12 +32,7 @@ class _LoginState extends State<Login> {
      _userpassword=TextEditingController();
     super.initState();
   }
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _useremail.dispose();
-    _userpassword.dispose();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,9 +109,8 @@ class _LoginState extends State<Login> {
                      });
                           email= _useremail.text;
                           password=_userpassword.text;
-                          print(email + "" +password);
 
-                     var response = await auth.login(email, password);
+                     var response = await auth.login(email,password);
                      print(response);
                      if (response == true) {
                        Navigator.push(context, MaterialPageRoute(

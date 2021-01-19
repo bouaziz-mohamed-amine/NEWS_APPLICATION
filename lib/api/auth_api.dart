@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:news_app/utilities/api_utilities.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthenticationAPI {
@@ -23,11 +24,14 @@ class AuthenticationAPI {
             var jsonData = jsonDecode(response.body);
             var data = jsonData['data'];
             var token = data['token'];
+            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              await  sharedPreferences.setString("token", token.toString());
             return true;
           }
           catch(Exception){
             return false;
           }
+          
       }else{
       return false;
     }

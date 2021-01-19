@@ -18,9 +18,9 @@ class AuthorsAPI{
           authors.add(author);
         }
     }
-    /*for(Author author in authors){
+    for(Author author in authors){
       print(author.email);
-    }*/
+    }
     return authors;
 }
 

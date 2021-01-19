@@ -6,13 +6,15 @@ import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/screens/instagram_feed.dart';
 import 'package:news_app/screens/pages/login.dart';
 import 'package:news_app/screens/twitter_feed.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
-
+  static bool isLoggedIn=false;
+  String token;
  List<NavMenuItem> navigationMenu=[
     NavMenuItem("Explore",() => HomeScreen()),
     NavMenuItem("HeadLineNews",() => HeadLineNews()),
@@ -21,10 +23,29 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
    NavMenuItem("Facebook Feeds",()=>facebouk_feeds()),
    NavMenuItem("LOGIN", ()=>Login())
  ];
-
+_checkToken() async{
+  SharedPreferences sharedLogin = await SharedPreferences.getInstance();
+  token = sharedLogin.get("token");
+  setState(() {
+    if(token == null){
+      isLoggedIn=false;
+    }else{
+      isLoggedIn= true;
+    }
+  });
+}
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(isLoggedIn){
+      navigationMenu.add(NavMenuItem("LOGOUT", ()=>facebouk_feeds()));
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+        _checkToken();
+  return Drawer(
           child: Padding(
             padding: const EdgeInsets.only(left: 20,top: 50),
 
