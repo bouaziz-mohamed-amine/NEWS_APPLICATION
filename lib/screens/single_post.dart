@@ -20,7 +20,8 @@ class _SinglePostState extends State<SinglePost> {
                   SliverAppBar(
                     floating: true,
                     pinned: true,
-                    backgroundColor: Colors.red.shade900,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
                     expandedHeight: MediaQuery.of(context).size.height * 0.3,
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
