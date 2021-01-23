@@ -23,6 +23,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
    NavMenuItem("Facebook Feeds",()=>facebouk_feeds()),
    NavMenuItem("LOGIN", ()=>Login())
  ];
+ /*
 _checkToken() async{
   SharedPreferences sharedLogin = await SharedPreferences.getInstance();
   token = sharedLogin.get("token");
@@ -40,11 +41,12 @@ _checkToken() async{
     super.initState();
     if(isLoggedIn){
       navigationMenu.add(NavMenuItem("LOGOUT", ()=>facebouk_feeds()));
+      navigationMenu.remove(NavMenuItem("LOGIN", ()=>Login()));
     }
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
-        _checkToken();
+       // _checkToken();
   return Drawer(
           child: Padding(
             padding: const EdgeInsets.only(left: 20,top: 50),

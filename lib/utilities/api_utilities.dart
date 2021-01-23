@@ -7,3 +7,4 @@ String  recent_update_api="/api/posts/categories/6";
 
 String categories_api="/api/posts/categories/";
 String auth_api ="/api/token";
+String update_api="/api/update-user/49";
